@@ -10,30 +10,30 @@ $this->title = Yii::t('imagemanager','Image manager');
 ?>
 <div id="module-imagemanager" class="container-fluid <?=$selectType?>">
 	<div class="row">
-		<div class="col-xs-6 col-sm-10 col-image-editor">
+		<div class="col-6 col-sm-9 col-image-editor">
 			<div class="image-cropper">
 				<div class="image-wrapper">
 					<img id="image-cropper" />
 				</div>
-				<div class="action-buttons">
+				<div class="action-buttons mt-3">
 					<a href="#" class="btn btn-primary apply-crop">
 						<i class="fa fa-crop"></i>
-						<span class="hidden-xs"><?=Yii::t('imagemanager','Crop')?></span>
+						<span class="d-none d-sm-inline-block"><?=Yii::t('imagemanager','Crop')?></span>
 					</a>
 					<?php if($viewMode === "iframe"): ?>
 					<a href="#" class="btn btn-primary apply-crop-select">
 						<i class="fa fa-crop"></i>
-						<span class="hidden-xs"><?=Yii::t('imagemanager','Crop and select')?></span>
+						<span class="d-none d-sm-inline-block"><?=Yii::t('imagemanager','Crop and select')?></span>
 					</a>
 					<?php endif; ?>
 					<a href="#" class="btn btn-default cancel-crop">
 						<i class="fa fa-undo"></i>
-						<span class="hidden-xs"><?=Yii::t('imagemanager','Cancel')?></span>
+						<span class="d-none d-sm-inline-block"><?=Yii::t('imagemanager','Cancel')?></span>
 					</a>
 				</div>
 			</div> 
 		</div>
-		<div class="col-xs-6 col-sm-10 col-overview">
+		<div class="col-6 col-sm-9 col-overview">
 			<?php Pjax::begin([
 				'id'=>'pjax-mediamanager',
 				'timeout'=>'5000'
@@ -48,7 +48,7 @@ $this->title = Yii::t('imagemanager','Image manager');
 			]) ?>
 			<?php Pjax::end(); ?>
 		</div>
-		<div class="col-xs-6 col-sm-2 col-options">
+		<div class="col-6 col-sm-3 col-options">
 			<div class="form-group">
 				<?=Html::textInput('input-mediamanager-search', null, ['id'=>'input-mediamanager-search', 'class'=>'form-control', 'placeholder'=>Yii::t('imagemanager','Search').'...'])?>
 			</div>
@@ -72,16 +72,17 @@ $this->title = Yii::t('imagemanager','Image manager');
 					'showRemove' => false,
 					'showUpload' => false,
 					'showCancel' => false,
+                    'showCaption' => false,
 					'browseClass' => 'btn btn-primary btn-block',
 					'browseIcon' => '<i class="fa fa-upload"></i> ',
 					'browseLabel' => Yii::t('imagemanager','Upload')
 				],
 				'pluginEvents' => [
-					"filebatchselected" => "function(event, files){  $('.msg-invalid-file-extension').addClass('hide'); $(this).fileinput('upload'); }",
+					"filebatchselected" => "function(event, files){  $('.msg-invalid-file-extension').addClass('d-none'); $(this).fileinput('upload'); }",
 					"filebatchuploadsuccess" => "function(event, data, previewId, index) {
 						imageManagerModule.uploadSuccess(data.jqXHR.responseJSON.imagemanagerFiles);
 					}",
-					"fileuploaderror" => "function(event, data) { $('.msg-invalid-file-extension').removeClass('hide'); }",
+					"fileuploaderror" => "function(event, data) { $('.msg-invalid-file-extension').removeClass('d-none'); }",
 				],
 			]) ?>
 
@@ -89,14 +90,14 @@ $this->title = Yii::t('imagemanager','Image manager');
 				endif;
 			?>
 
-			<div class="image-info hide">
+			<div class="image-info d-none">
 				<div class="thumbnail">
 					<img src="#">
 				</div>
 				<div class="edit-buttons">
 					<a href="#" class="btn btn-primary btn-block crop-image-item">
 						<i class="fa fa-crop"></i>
-						<span class="hidden-xs"><?=Yii::t('imagemanager','Crop')?></span>
+						<span class="d-none d-sm-inline-block"><?=Yii::t('imagemanager','Crop')?></span>
 					</a>
 				</div>
 				<div class="details">

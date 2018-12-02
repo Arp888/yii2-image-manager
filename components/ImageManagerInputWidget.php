@@ -32,6 +32,11 @@ class ImageManagerInputWidget extends InputWidget {
      */
     public $showDeletePickedImageConfirm = false;
 
+    public $removeBtnIcon = 'fa fa-times';
+    public $removeBtnCss = 'btn btn-warning';
+    public $browseBtnIcon = 'fa fa-folder-open';
+    public $browseBtnClass = 'btn btn-success';
+
     /**
      * @inheritdoc
      */
@@ -44,7 +49,8 @@ class ImageManagerInputWidget extends InputWidget {
                 'sourceLanguage' => 'en',
                 'basePath' => '@noam148/imagemanager/messages'
             ];
-        }
+        };
+
     }
 
     /**
@@ -80,15 +86,16 @@ class ImageManagerInputWidget extends InputWidget {
             $field .= Html::hiddenInput($this->name, $this->value, $this->options);
         }
         //end input group
-        $sHideClass = $ImageManager_id === null ? 'hide' : '';
-        $field .= "<a href='#' class='input-group-addon btn btn-primary delete-selected-image " . $sHideClass . "' data-input-id='" . $sFieldId . "' data-show-delete-confirm='" . ($this->showDeletePickedImageConfirm ? "true" : "false") . "'><i class='fa fa-remove' aria-hidden='true'></i></a>";
-        $field .= "<a href='#' class='input-group-addon btn btn-primary open-modal-imagemanager' data-aspect-ratio='" . $this->aspectRatio . "' data-crop-view-mode='" . $this->cropViewMode . "' data-input-id='" . $sFieldId . "'>";
-        $field .= "<i class='fa fa-folder-open' aria-hidden='true'></i>";
-        $field .= "</a></div>";
+        $sHideClass = $ImageManager_id === null ? 'd-none' : '';
+        $field .= "<div class='input-group-append'>";
+        $field .= "<a href='#' class='" . $this->removeBtnCss . " delete-selected-image " . $sHideClass . "' data-input-id='" . $sFieldId . "' data-show-delete-confirm='" . ($this->showDeletePickedImageConfirm ? "true" : "false") . "'><i class='" . $this->removeBtnIcon . "' aria-hidden='true'></i></a>";
+        $field .= "<a href='#' class='" . $this->browseBtnClass . " open-modal-imagemanager' data-aspect-ratio='" . $this->aspectRatio . "' data-crop-view-mode='" . $this->cropViewMode . "' data-input-id='" . $sFieldId . "'>";
+        $field .= "<i class='" . $this->browseBtnIcon . "' aria-hidden='true'></i>";
+        $field .= "</a></div></div>";
 
         //show preview if is true
         if ($this->showPreview == true) {
-            $sHideClass = ($mImageManager == null) ? "hide" : "";
+            $sHideClass = ($mImageManager == null) ? "d-none" : "";
             $sImageSource = isset($mImageManager->id) ? \Yii::$app->imagemanager->getImagePath($mImageManager->id, 500, 500, 'inset') : "";
 
             $field .= '<div class="image-wrapper ' . $sHideClass . '">'
@@ -111,8 +118,10 @@ class ImageManagerInputWidget extends InputWidget {
         $view = $this->getView();
         ImageManagerInputAsset::register($view);
 
-        //set baseUrl from image manager
-        $sBaseUrl = Url::to(['/imagemanager/manager']);
+        //set baseUrl from image manager               
+     
+        $sBaseUrl = Url::to(['imagemanager/manager']);
+        
         //set base url
         $view->registerJs("imageManagerInput.baseUrl = '" . $sBaseUrl . "';");
         $view->registerJs("imageManagerInput.message = " . Json::encode([

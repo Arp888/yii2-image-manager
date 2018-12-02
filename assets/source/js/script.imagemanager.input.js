@@ -16,8 +16,11 @@ var imageManagerInput = {
 				sModalHtml += '<div class="modal-dialog modal-lg">';
 					sModalHtml += '<div class="modal-content">';
 						sModalHtml += '<div class="modal-header">';
-							sModalHtml += '<button aria-hidden="true" data-dismiss="modal" class="close" type="button">&times;</button>';
-							sModalHtml += '<h4>Image manager</h4>';
+						// <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+
+							sModalHtml += '<h5 class="modal-title" id="exampleModalLabel">Image Manager</h5>';
+							sModalHtml += '<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>';
+							
 						sModalHtml += '</div>';
 						sModalHtml += '<div class="modal-body">';
 							sModalHtml += '<iframe src="#"></iframe>';
@@ -70,9 +73,9 @@ var imageManagerInput = {
 		//trigger change
 		$('#'+sFieldId).trigger("change");
 		//hide image
-		$('#'+sImagePreviewId).attr("src","").parent().addClass("hide");	
+		$('#'+sImagePreviewId).attr("src","").parent().addClass("d-none");	
 		//delete hide class
-		$(".delete-selected-image[data-input-id='"+inputId+"']").addClass("hide");
+		$(".delete-selected-image[data-input-id='"+inputId+"']").addClass("d-none");
 	}
 };
 

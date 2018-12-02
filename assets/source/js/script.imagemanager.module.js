@@ -56,11 +56,11 @@ var imageManagerModule = {
 				//set input data		
 				$('#'+sFieldId, window.parent.document).val(imageManagerModule.selectedImage.id);
 				$('#'+sFieldNameId, window.parent.document).val(imageManagerModule.selectedImage.fileName);
-				$('#'+sFieldImageId, window.parent.document).attr("src",imageManagerModule.selectedImage.image).parent().removeClass("hide");
+				$('#'+sFieldImageId, window.parent.document).attr("src",imageManagerModule.selectedImage.image).parent().removeClass("d-none");
 				//trigger change
 				parent.$('#'+sFieldId).trigger('change');
 				//show delete button
-				$(".delete-selected-image[data-input-id='"+sFieldId+"']", window.parent.document).removeClass("hide");
+				$(".delete-selected-image[data-input-id='"+sFieldId+"']", window.parent.document).removeClass("d-none");
 				//close the modal
 				window.parent.imageManagerInput.closeModal();
 				break;
@@ -127,7 +127,7 @@ var imageManagerModule = {
 							//delete item element
 							$("#module-imagemanager .item-overview .item[data-key='"+imageManagerModule.selectedImage.id+"']").remove(); 
 							//add hide class to info block
-							$("#module-imagemanager .image-info").addClass("hide");
+							$("#module-imagemanager .image-info").addClass("d-none");
 							//set selectedImage to null
 							imageManagerModule.selectedImage = null;
 							//close edit
@@ -174,7 +174,7 @@ var imageManagerModule = {
 					$("#module-imagemanager .image-info .dimensions .dimension-height").text(responseData.dimensionHeight);
 					$("#module-imagemanager .image-info .thumbnail").html("<img src='"+responseData.image+"' alt='"+responseData.fileName+"'/>");
 					//remove hide class
-					$("#module-imagemanager .image-info").removeClass("hide");
+					$("#module-imagemanager .image-info").removeClass("d-none");
 				}
 			},
 			error: function (jqXHR, textStatus, errorThrown) {

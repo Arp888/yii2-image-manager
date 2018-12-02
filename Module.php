@@ -47,6 +47,11 @@ class Module extends \yii\base\Module {
      */
 	public $deleteOriginalAfterEdit = false;
 
+    public $asNestedModule = false;
+
+    public $parentModule;
+
+
 	/**
 	 * @inheritdoc
 	 */
@@ -86,6 +91,10 @@ class Module extends \yii\base\Module {
 		// Check if the Delete original after crop variable is callable
         if (is_callable($this->deleteOriginalAfterEdit))
             $this->deleteOriginalAfterEdit = call_user_func($this->deleteOriginalAfterEdit);
+
+        // Check if the as nested module variable is callable
+        if (is_callable($this->asNestedModule))
+            $this->asNestedModule = call_user_func($this->asNestedModule);
 
 		// Check if the variable configuration is correct in order for the module to function
 		$this->_checkVariableConfiguration();

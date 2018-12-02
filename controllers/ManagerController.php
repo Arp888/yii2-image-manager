@@ -80,10 +80,18 @@ class ManagerController extends Controller {
 				}
 			}
 		}
+		
+        //set baseUrl from image manager
+        $module = Module::getInstance();
+        if ($module->asNestedModule) {
+            $sBaseUrl = Url::to(['/' . $module->parentModule . '/imagemanager/manager']);
+        } else {
+            $sBaseUrl = Url::to(['/imagemanager/manager']);
+        }
 
-		//set baseUrl from image manager
-		$sBaseUrl = Url::to(['/imagemanager/manager']);
-		//set base url
+		// $sBaseUrl = Url::to(['/webadmin/imagemanager/manager']);
+		
+        //set base url
 		$this->view->registerJs("imageManagerModule.baseUrl = '" . $sBaseUrl . "';", 3);
 		$this->view->registerJs("imageManagerModule.defaultImageId = '" . $defaultImageId . "';", 3);
 		$this->view->registerJs("imageManagerModule.fieldId = '" . $inputFieldId . "';", 3);
